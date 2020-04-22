@@ -1,56 +1,36 @@
-import argparse
+import string
+import ciphers
+import coding
 
 def count_string_stat(text, stat, lang = "eng"):
     text = text.lower()
+    consts = ciphers.get_contants(lang)
     for i in text:
-        if 'a' <= i <= 'z':
-            stat[ord(i) - ord('a')] += 1
-        elif "а" <= i <= "я":
-            stat[ord(i) - ord('а')] += 1
+        if i in consts["lowercase"]:
+            stat[consts["LOW"][i] - 1] += 1
         else:
             pass
 
 
-def analyze_lang(str):
-    for i in str:
-        if 'a' <= i <= 'z':
-            return 'eng'
-        if "а" <= i <= "я":
-            return 'ru' 
-
-
 def analyze(args):
-    alphabet_len = {"eng" : 26, "ru" : 33}
-    lang = None
-    if args.text_file == 0:
-        print("Enter text")
-        text = input()
-        lang = "eng"
-        stat = []
-        for i in range(alphabet_len[lang]):
-            stat.append(0)
-        count_string_stat(text, stat, lang)
-    else:
-        f = open(args.text_file, "r")
-        for line in f:
-            if lang == None:
-                lang = "eng"
-                stat = []
-                for i in range(alphabet_len[lang]):
-                    stat.append(0)
-            count_string_stat(line, stat, lang)
-        f.close()
+    text = coding.get_text(args.text_file, "train")
+    lang = coding.get_lang(text)
+    stat = []
+    for i in range(ciphers.deltas[lang]):
+        stat.append(0)
+    for i in text:
+        count_string_stat(i, stat, lang)
     all_symbs = sum(stat)
     for i in range(len(stat)):
         stat[i] /= all_symbs
-    return stat
+    return [stat, lang]
 
 
 def train(args, lang = "eng"):
-    stat = analyze(args)
+    a = analyze(args)
+    stat, lang = a[0], a[1] 
+    
     f = open(args.model_file, "w")
-    for i in range(len(stat)):
-        if lang == "ru":
-            f.write(chr(ord('а') + i) + " " + str(stat[i]) + "\n")
-        elif lang == "eng":
-            f.write(chr(ord('a') + i) + " " + str(stat[i]) + "\n")
+    consts = ciphers.get_contants(lang)
+    for i in range(1, len(stat) + 1):
+        f.write(consts["LOWER_INV"][i] + " " + str(stat[i - 1]) + "\n")

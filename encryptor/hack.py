@@ -1,11 +1,12 @@
 import train
-import decode
+import coding
+import ciphers
 
-def hack(args, lang = "eng"):
+def hack(args):
     alphabet_len = {"eng" : 26, "ru" : 33}
     d = vars(args)
     d["text_file"] = args.input_file
-    stat = train.analyze(args)
+    stat, lang = train.analyze(args)[0], train.analyze(args)[1]
     model = []
     with open(args.model_file, "r") as f:
         for line in f:
@@ -21,4 +22,4 @@ def hack(args, lang = "eng"):
             min_dependence = dependence
     d["cipher"] = "caesar"
     d["key"] = min_key
-    decode.decode(args)
+    coding.command(args, "decode")
