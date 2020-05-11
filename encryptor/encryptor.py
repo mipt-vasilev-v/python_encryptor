@@ -33,11 +33,11 @@ parser_hack.add_argument("--output-file", default=None)
 parser_hack.add_argument("--model-file", default="model.txt", required=True)
 
 args = parser.parse_args()
-if (args.command == "encode"):
+if args.command == "encode":
     coding.command(args, "encode")
-elif(args.command == "decode"):
+elif args.command == "decode":
     coding.command(args, "decode")
-elif(args.command == "train"):
+elif args.command == "train":
     train.train(args)
 else:
     hack.hack(args)

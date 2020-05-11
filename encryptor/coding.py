@@ -1,7 +1,7 @@
 import string 
 import ciphers
-from enumerators import Language
-from enumerators import lang_len
+from enumerators import Language, lang_len
+
 
 def out(file, *args):
     if file is None:
@@ -32,22 +32,24 @@ def get_key(cipher, key):
 
     elif cipher == 'viginere':
         res = key
-        for i in res:
-            if not i in string.ascii_lowercase and \
-               not i in ciphers.ru_lowercase:
+        for sym in res:
+            if sym not in string.ascii_lowercase and \
+               sym not in ciphers.ru_lowercase:
                 raise ValueError("Key must be a word in lowercase")
 
     return res
 
+
 def get_lang(text):
-    for i in text:
-        i = i.lower()
-        for j in i:
-            if j in ciphers.ru_lowercase:
+    for word in text:
+        word = word.lower()
+        for sym in word:
+            if sym in ciphers.ru_lowercase:
                 return Language.RUS
-            elif j in string.ascii_lowercase:
+            elif sym in string.ascii_lowercase:
                 return Language.ENG
     return Language.ENG    
+
 
 def command(args, command):
     text = get_text(args.input_file, command)

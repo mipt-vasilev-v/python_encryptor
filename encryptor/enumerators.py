@@ -1,7 +1,7 @@
 from enum import Enum 
 
 class Language(Enum):
-    ENG = 0
-    RUS = 1
+    ENG = 'eng'
+    RUS = 'rus'
 
 lang_len = {Language.ENG : 26, Language.RUS : 33}
