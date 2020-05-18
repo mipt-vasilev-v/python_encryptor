@@ -54,7 +54,7 @@ def caesar(text, key, command, lang = Language.ENG):
             res.append(LOWER_INV[value])
         else:
             res.append(i)
-    res_str = "".join(i for i in res)
+    res_str = "".join(res)
     return res_str
 
 
@@ -73,7 +73,7 @@ def vigenere(text, key, command, lang = Language.ENG):
     for _ in range(len(key), amount_of_symbs):
         remained_part.append(key_word[i])
         i += 1
-    remained_str = "".join(i for i in remained_part)  
+    remained_str = "".join(remained_part)  
     key += remained_str
     key = key.lower()
     cnt = 0
@@ -84,5 +84,5 @@ def vigenere(text, key, command, lang = Language.ENG):
             cnt += 1
         else:
             res.append(sym)
-    res_str = "".join(str(i) for i in res)
+    res_str = "".join(res)
     return res_str

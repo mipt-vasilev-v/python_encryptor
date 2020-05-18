@@ -15,7 +15,10 @@ def get_text(input_file, command):
     res = []
     if input_file is None:
         print("Enter text to {}".format(command))
-        res.append(input())
+        text = input()
+        while (text):
+            res.append(text)
+            text = input()
     else:
         with open(input_file, "r") as file:
             for line in file:
@@ -33,10 +36,8 @@ def get_key(cipher, key):
     elif cipher == 'viginere':
         res = key
         for sym in res:
-            if sym not in string.ascii_lowercase and \
-               sym not in ciphers.ru_lowercase:
+            if not sym.islower():
                 raise ValueError("Key must be a word in lowercase")
-
     return res
 
 

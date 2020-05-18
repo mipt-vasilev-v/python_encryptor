@@ -23,7 +23,7 @@ def analyze(args):
     all_symbs = sum(stat)
     for i in range(len(stat)):
         stat[i] /= all_symbs
-    return (stat, lang)
+    return stat, lang
 
 
 def train(args, lang = Language.ENG):
