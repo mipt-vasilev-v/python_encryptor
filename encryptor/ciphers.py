@@ -63,7 +63,7 @@ def vigenere(text, key, command, lang = Language.ENG):
 
     amount_of_symbs = 0
     for i in text:
-        if i.lower().islower():
+        if i.isalpha():
             amount_of_symbs += 1
 
     key_word = key
@@ -79,7 +79,7 @@ def vigenere(text, key, command, lang = Language.ENG):
     cnt = 0
     res = []
     for sym in text:
-        if sym.isalpha:
+        if sym.isalpha():
             res.append(caesar(sym, LOW[key[cnt]] - 1, command, lang))
             cnt += 1
         else:
