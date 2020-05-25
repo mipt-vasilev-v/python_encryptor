@@ -4,6 +4,7 @@ import coding
 import train
 import hack
 
+
 parser = argparse.ArgumentParser()
 subparsers = parser.add_subparsers()
 
